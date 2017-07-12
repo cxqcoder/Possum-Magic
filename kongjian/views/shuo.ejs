@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>发表说说</title>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+</head>
+<body>
+<%include head.ejs%>
+<div class="container">
+    <h4>发表你的说说</h4>
+    <form enctype="multipart/form-data" method="get">
+            <textarea type="text" class="shuoshuo" placeholder="吐槽、发疯，有什么，说什么。。。" name="lcontent" rows="10" cols="143"></textarea><br/>
+        <input type="button" class="btn btn-success leave" id="btn" value="发布">
+    </form>
+  <%if(login){%>
+    <div class="sarea">
+        <h3 class="text-left text-success">说说列表(<%=counts%>)</h3>
+        <hr/>
+        <%for(var i=0;i<shuodata.length;i++){%>
+        <div><span>姓名：</span><%=shuodata[i].uname%></div>
+        <div><span>留言：</span><%=shuodata[i].content%></div>
+        <div><span>时间：</span><%=shuodata[i].uptime%></div>
+        <br/>
+        <a href="/delete<%=shuodata[i]._id%>" class="btn btn-default text-right">删除</a>
+        <hr class="text-success" />
+        <%}%>
+    </div>
+    <nav aria-label="Page navigation" class="page">
+        <ul class="pagination">
+            <li>
+                <a href="/page<%=prepage%>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <%for(var j=0;j<pagecounts;j++){%>
+            <li><a href="/page<%=j%>"><%=j+1%></a></li>
+            <%}%>
+            <li>
+                <a href="/page<%=nextpage%>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <%}else {%>
+      <div class="unload">
+          <h1 class="text-primary text-center">请 <a href="/login">登录</a>后，发布说说</h1>
+      </div>
+    <%}%>
+</div>
+<script type="text/javascript">
+    $("#btn").click(function () {
+        console.log("111");
+        $.post("/dshuo",{
+            "content":$(".shuoshuo").val()
+        },function (result) {
+            if(result == "-1"){
+                $("#alert").text("用户名不存在！").fadeIn();
+            }else if(result == "1"){
+                location = "/";
+            }
+        })
+        }
+
+    );
+
+</script>
+</body>
+</html>

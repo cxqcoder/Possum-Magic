@@ -1,0 +1,37 @@
+body {
+    padding-top:50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.active {
+    background: #000000;
+    color: #ffffff;
+}
+
+.zc {
+    background: url("../../public/images/bg.png") no-repeat;
+    background-size: cover;
+}
+
+.input-group {
+    margin: 20px auto;
+}
+.page{
+    text-align: center;
+    margin: 20px auto;
+}
+.unload{
+    width: 100%;
+    height: 200px;
+    padding-top: 50px;
+}
+.wrap{
+    width: 100%;
+    height:300px;
+    padding: 20px 0;
+    background: #eeeeee;
+}

@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+  <title>注册</title>
+
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+</head>
+<body>
+<% include ./head.ejs %>
+<div class="container zc">
+  <div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+    <h4 class="text-center"> 用户注册</h4>
+    <form enctype="multipart/form-data" method="post">
+      <div class="input-group">
+        <span class="input-group-addon">账户</span>
+        <input type="text" class="form-control" placeholder="账户" aria-describedby="sizing-addon2"  name="uname" id="uname">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon">密码</span>
+        <input type="text" class="form-control" placeholder="密码" aria-describedby="sizing-addon2" name="upass" id="upass">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" >签名</span>
+        <textarea type="text" class="form-control" placeholder="签名" aria-describedby="sizing-addon2" name="uintro" id="utrol"></textarea>
+      </div>
+      <div class="alert alert-danger" id="alert"></div>
+      <input type="button" id="zhuce" class="btn btn-default" value="注册">
+      <button class="btn btn-default">取消</button>
+    </form>
+    </div>
+  </div>
+</div>
+
+  <hr>
+
+  <footer>
+    <p>&copy; 2016 Company, Inc.</p>
+  </footer>
+
+</body>
+</html>
+<script>
+    $("#zhuce").click(function(){
+
+        $.post("/doRegedit",{
+            "uname":$("#uname").val(),
+            "upass":$("#upass").val(),
+            "intro":$("#utrol").val()
+        },function (result) {
+            if(result == "-1"){
+                $("#alert").text("用户名被占用，请重新填写！").fadeIn();
+            }else if(result == "-3"){
+                $("#alert").text("操作失败，请联系管理员！").fadeIn();
+            }else if(result == "-2"){
+                $("#alert").text("注册失败，请重新注册").fadeIn();
+            }
+            else if(result == "1"){
+                $("#alert").text("注册成功").fadeIn();
+                location = "/";
+            }
+        })
+    })
+</script>

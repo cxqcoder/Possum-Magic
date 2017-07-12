@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+  <title>个人空间</title>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <script src="js/html5shiv.min.js"></script>
+  <script src="js/respond.min.js"></script>
+</head>
+
+<body>
+
+<% include head.ejs %>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="wrap">
+  <div class="container">
+      <% if(!login){ %>
+    <div class="col col-md-6">
+      <h3>个人空间，释放真我</h3>
+      <p>我的地盘，就要听我的，敢玩就来挑战！</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">注册</a></p>
+    </div>
+    <div class="col col-md-6">
+      <h4>已有账号，请登录</h4>
+      <form enctype="multipart/form-data" method="post">
+        <div class="form-group">
+          <label for="exampleInputEmail1">用户名</label>
+          <input type="text" class="form-control" id="username" placeholder="Email" name="username">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">密码</label>
+          <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+        </div>
+        <button type="button" class="btn btn-default" id="btn">登录</button>
+      </form>
+      <div class="alert alert-danger" id="alert"></div>
+    </div>
+      <% }else{ %>
+    <div class="col col-md-6 col-md-offset-3">
+      <h2>你好，<%=username%></h2>
+      <p><%=message[0].intro%></p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">了解我吧</a></p>
+    </div>
+      <% } %>
+
+  </div>
+</div>
+
+<div class="container">
+  <!-- Example row of columns -->
+  <div class="row">
+    <%if(login){%>
+    <%for(var i=0;i<shuoshuo.length;i++){%>
+    <div class="col-md-4">
+      <h2><%=shuoshuo[i].uptime%></h2>
+      <p><%=shuoshuo[i].content%></p>
+      <p><a class="btn btn-default" href="#" role="button">查看更多</a></p>
+    </div>
+    <%}%>
+    <%}else {%>
+    <div class="col-md-4">
+      <h1>你还没登录哟！</h1>
+    </div>
+    <%}%>
+
+  </div>
+
+  <hr>
+
+  <footer>
+    <p>&copy; 2016 Company, Inc.</p>
+  </footer>
+</div> <!-- /container -->
+
+</body>
+</html>
